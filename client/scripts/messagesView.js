@@ -9,9 +9,8 @@ var MessagesView = {
   },
 
   renderMessage: function(message) {
-    let rendered = MessageView.render.call(this,message);
+    let rendered = MessageView.render(message);
     this.$chats.append(rendered);
-    console.log(rendered);
   }
 
 };
