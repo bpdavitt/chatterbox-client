@@ -5,7 +5,7 @@ var MessagesView = {
   initialize: function() {
   },
 
-  render: function(arr) {
+  render: function(arr = []) {
     $('#chats').empty();
     for (let i = 0; i < arr.length; i++) {
       MessagesView.renderMessage(arr[i]);

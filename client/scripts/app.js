@@ -14,6 +14,7 @@ var App = {
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
+    setInterval(App.fetch, 5000);
 
   },
 
@@ -23,7 +24,8 @@ var App = {
       let allMessages = data.results;
       allMessages = App.scrubData(allMessages);
       Rooms.manageRoomsImport(allMessages);
-      MessagesView.render(allMessages);
+      RoomsView.render();
+      // MessagesView.render(allMessages);
       console.log(data);
 
       callback();
@@ -42,6 +44,14 @@ var App = {
   scrubData: function(arr) {
     for (var i = arr.length - 1; i >= 0; i--) {
       if (arr[i].text === undefined || arr[i].username === undefined || arr[i].roomname === undefined) {
+        arr.splice(i, 1);
+        continue;
+      }
+      if (arr[i].text === null || arr[i].username === null || arr[i].roomname === null) {
+        arr.splice(i, 1);
+        continue;
+      }
+      if (arr[i].text.length === 0 || arr[i].username.length === 0 || arr[i].roomname.length === 0) {
         arr.splice(i, 1);
         continue;
       }
