@@ -15,6 +15,9 @@ var MessagesView = {
   renderMessage: function(message) {
     let rendered = MessageView.render(message);
     this.$chats.append(rendered);
+    $('.username').unbind('click').click(function(event) {
+      Friends.toggleStatus(event.target.textContent);
+    });
   }
 
 };
