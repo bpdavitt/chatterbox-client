@@ -5,7 +5,10 @@ var MessagesView = {
   initialize: function() {
   },
 
-  render: function() {
+  render: function(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      MessagesView.renderMessage(arr[i]);
+    }
   },
 
   renderMessage: function(message) {

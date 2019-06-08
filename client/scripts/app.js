@@ -20,6 +20,9 @@ var App = {
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       // examine the response from the server request:
+      let allMessages = data.results;
+      allMessages = App.scrubData(allMessages);
+      MessagesView.render(allMessages);
       console.log(data);
 
       callback();
@@ -34,5 +37,26 @@ var App = {
   stopSpinner: function() {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
+  },
+  scrubData: function(arr) {
+    for(var i = arr.length - 1 ; i >= 0; i--){
+      if(arr[i].text === undefined || arr[i].username === undefined || arr[i].roomname === undefined){
+        arr.splice(i, 1);
+        continue;
+      }
+      if(arr[i].text.includes("<script>") || arr[i].username.includes("<script>") || arr[i].roomname.includes("<script>") ){
+        arr.splice(i, 1);
+        continue;
+      }
+      if(arr[i].text.includes("<img") || arr[i].username.includes("<img") || arr[i].roomname.includes("<img") ){
+        arr.splice(i, 1);
+        continue;
+      }
+      if(arr[i].text.includes("<iframe") || arr[i].username.includes("<iframe") || arr[i].roomname.includes("<iframe") ){
+        arr.splice(i, 1);
+        continue;
+      }
+    }
+    return arr;
   }
 };
