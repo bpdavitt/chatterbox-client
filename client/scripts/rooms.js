@@ -1,11 +1,25 @@
 var Rooms = {
 
+  allRooms: {},
+
   add: function () {
     let room = window.prompt('Please enter new room name', '');
     RoomsView.renderRoom(room);
   },
 
-  allRooms: {}
+  manageRoomsImport: function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let roomName = arr[i].roomname;
+      if (Rooms.allRooms[roomName] === undefined) {
+        Rooms.allRooms[roomName] = [arr[i]];
+        RoomsView.renderRoom(roomName);
+      } else {
+        Rooms.allRooms[roomName].push(arr[i]);
+      }
+    }
+  },
+
+  
 };
 
 /*
